@@ -1,4 +1,6 @@
-# Downloading RNA-Seq Data from NCBI Bioprojects
+# Finalized Pipline
+
+## Downloading RNA-Seq Data from NCBI Bioprojects
 
 ~/software/sratoolkit.2.9.6-1-centos_linux64/bin/fasterq-dump ERR3001915
 ~/software/sratoolkit.2.9.6-1-centos_linux64/bin/fasterq-dump ERR3001916
@@ -17,11 +19,11 @@
 
 > Using the fasterq-dump function in the NCBI SRA-toolkit, I downloaded each replicate of each tissues from a variety of studies in the NCBI Bioproject database, included paired runs, if applicable.
 
-# Downloading A. thaliana Genome and Info Files
+## Downloading A. thaliana Genome and Info Files
 
 > Accessed the TAIR10.1 Assembly of the A. thaliana genome through the RefSeq Genome FTP via Cyberduck, coping the genomic (GCF_000001735.4_TAIR10.1_genomic.fna) and info (GCF_000001735.4_TAIR10.1_genomic.gff) files to colossus in my ~/scratch/BL5300/topic_of_choice/Athal_ncbi directory.
 
-# Mapping Raw RNA-Seq Reads to the Genome
+## Mapping Raw RNA-Seq Reads to the Genome
 
 cd ~/scratch/BL5300/topic_of_choice
 mkdir star-rsem
@@ -49,7 +51,7 @@ STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR1610507_1.fastq ../SRR161050
 
 > Mapped each of my datasets to the TAIR10 indexed genome in preparation for RSEM via STAR (WARNING: this step takes excessively long).
 
-# Counting Transcript Reads
+## Counting Transcript Reads
 
 
 # Trial Run
