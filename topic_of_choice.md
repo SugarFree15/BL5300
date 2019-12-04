@@ -63,54 +63,99 @@ rsem-calculate-expression --no-bam-output --star --paired-end --forward-prob 0 .
 ## Data Configuration Before Analysis
 
 grep -w "AT2G06200" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT2G22840" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT2G36400" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT2G45480" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT3G13960" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT3G52910" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT4G24150" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT4G37740" SRR10320043.genes.results >> SRR10320043.GRFs.results
+
 grep -w "AT5G53660" SRR10320043.genes.results >> SRR10320043.GRFs.results
 
+
 grep -w "AT2G06200" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT2G22840" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT2G36400" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT2G45480" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT3G13960" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT3G52910" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT4G24150" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT4G37740" ERR3001915.genes.results >> ERR3001915.GRFs.results
+
 grep -w "AT5G53660" ERR3001915.genes.results >> ERR3001915.GRFs.results
 
+
 grep -w "AT2G06200" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT2G22840" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT2G36400" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT2G45480" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT3G13960" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT3G52910" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT4G24150" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT4G37740" ERR1727060.genes.results >> ERR1727060.GRFs.results
+
 grep -w "AT5G53660" ERR1727060.genes.results >> ERR1727060.GRFs.results
 
+
 grep -w "AT2G06200" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT2G22840" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT2G36400" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT2G45480" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT3G13960" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT3G52910" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT4G24150" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT4G37740" SRR10054931.genes.results >> SRR10054931.GRFs.results
+
 grep -w "AT5G53660" SRR10054931.genes.results >> SRR10054931.GRFs.results
 
+
 grep -w "AT2G06200" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT2G22840" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT2G36400" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT2G45480" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT3G13960" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT3G52910" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT4G24150" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT4G37740" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 grep -w "AT5G53660" SRR1610505.genes.results >> SRR1610505.GRFs.results
+
 
 > Using the gene IDs of each GRF in Arabidopsis, I used grep to sort the GRF data from the RSEM results into new files that were then downloaded to my R.project directory for analysis.
 
@@ -123,14 +168,21 @@ library(tidyverse)
 RootCounts <- read.table("SRR1610505.GRFs.results")
 
 RootCounts <- as.data.frame(RootCounts)
+
 RootCounts <- mutate(RootCounts, tissue = "root")
 
 RootCounts <- rename(RootCounts, "gene_id" = "V1")
+
 RootCounts <- rename(RootCounts, "transcript_id(s)" = "V2")
+
 RootCounts <- rename(RootCounts, "length" = "V3")
+
 RootCounts <- rename(RootCounts, "effective_length" = "V4")
+
 RootCounts <- rename(RootCounts, "expected_count" = "V5")
+
 RootCounts <- rename(RootCounts, "TPM" = "V6")
+
 RootCounts <- rename(RootCounts, "FPKM" = "V7")
 
 ggplot(RootCounts)+
@@ -144,14 +196,21 @@ ggplot(RootCounts)+
 SeedCounts <- read.table("SRR10054931.GRFs.results")
 
 SeedCounts <- as.data.frame(SeedCounts)
+
 SeedCounts <- mutate(SeedCounts, tissue = "seed")
 
 SeedCounts <- rename(SeedCounts, "gene_id" = "V1")
+
 SeedCounts <- rename(SeedCounts, "transcript_id(s)" = "V2")
+
 SeedCounts <- rename(SeedCounts, "length" = "V3")
+
 SeedCounts <- rename(SeedCounts, "effective_length" = "V4")
+
 SeedCounts <- rename(SeedCounts, "expected_count" = "V5")
+
 SeedCounts <- rename(SeedCounts, "TPM" = "V6")
+
 SeedCounts <- rename(SeedCounts, "FPKM" = "V7")
 
 ggplot(SeedCounts)+
@@ -165,14 +224,21 @@ ggplot(SeedCounts)+
 CallusCounts <- read.table("ERR1727060.GRFs.results")
 
 CallusCounts <- as.data.frame(CallusCounts)
+
 CallusCounts <- mutate(CallusCounts, tissue = "callus")
 
 CallusCounts <- rename(CallusCounts, "gene_id" = "V1")
+
 CallusCounts <- rename(CallusCounts, "transcript_id(s)" = "V2")
+
 CallusCounts <- rename(CallusCounts, "length" = "V3")
+
 CallusCounts <- rename(CallusCounts, "effective_length" = "V4")
+
 CallusCounts <- rename(CallusCounts, "expected_count" = "V5")
+
 CallusCounts <- rename(CallusCounts, "TPM" = "V6")
+
 CallusCounts <- rename(CallusCounts, "FPKM" = "V7")
 
 ggplot(CallusCounts)+
@@ -186,14 +252,21 @@ ggplot(CallusCounts)+
 WholeCounts <- read.table("ERR3001915.GRFs.results")
 
 WholeCounts <- as.data.frame(WholeCounts)
+
 WholeCounts <- mutate(WholeCounts, tissue = "full organism")
 
 WholeCounts <- rename(WholeCounts, "gene_id" = "V1")
+
 WholeCounts <- rename(WholeCounts, "transcript_id(s)" = "V2")
+
 WholeCounts <- rename(WholeCounts, "length" = "V3")
+
 WholeCounts <- rename(WholeCounts, "effective_length" = "V4")
+
 WholeCounts <- rename(WholeCounts, "expected_count" = "V5")
+
 WholeCounts <- rename(WholeCounts, "TPM" = "V6")
+
 WholeCounts <- rename(WholeCounts, "FPKM" = "V7")
 
 ggplot(WholeCounts)+
@@ -207,14 +280,21 @@ ggplot(WholeCounts)+
 ApexCounts <- read.table("SRR10320043.GRFs.results")
 
 ApexCounts <- as.data.frame(ApexCounts)
+
 ApexCounts <- mutate(ApexCounts, tissue = "stem apex")
 
 ApexCounts <- rename(ApexCounts, "gene_id" = "V1")
+
 ApexCounts <- rename(ApexCounts, "transcript_id(s)" = "V2")
+
 ApexCounts <- rename(ApexCounts, "length" = "V3")
+
 ApexCounts <- rename(ApexCounts, "effective_length" = "V4")
+
 ApexCounts <- rename(ApexCounts, "expected_count" = "V5")
+
 ApexCounts <- rename(ApexCounts, "TPM" = "V6")
+
 ApexCounts <- rename(ApexCounts, "FPKM" = "V7")
 
 ggplot(ApexCounts)+
