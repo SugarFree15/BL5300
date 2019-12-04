@@ -40,6 +40,12 @@ mkdir Athal_ncbi/
 
 > Accessed the TAIR10.1 Assembly of the A. thaliana genome through the RefSeq Genome FTP via Cyberduck, coping the genomic (GCF_000001735.4_TAIR10.1_genomic.fna) and info (GCF_000001735.4_TAIR10.1_genomic.gff) files to colossus in my ~/scratch/BL5300/topic_of_choice/Athal_ncbi directory.
 
+## Quality Assessment and Control
+
+fastqc <Sample_ID>
+
+> Ran all the samples through fastqc to ensure quality. No trimming needed.
+
 ## Mapping Raw RNA-Seq Reads to the Genome and Counting Transcripts
 
 > NOTE: I was slightly desperate to troubleshoot my syntaxes, so the working directory and some files are named with 'please' with no significance other than hoping this pipeline worked.
