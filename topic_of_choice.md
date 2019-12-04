@@ -50,7 +50,7 @@ rsem-prepare-reference --gtf please_genomic.gtf --star ../Athal_ncbi/GCF_0000017
 
 rsem-calculate-expression --no-bam-output --star ../SRR1610505.fastq rsem/please_ncbi SRR1610505
 
-rsem-calculate-expression --no-bam-output --star ../.fastq rsem/please_ncbi 
+rsem-calculate-expression --no-bam-output --star ../SRR10320043.fastq rsem/please_ncbi 
 
 rsem-calculate-expression --no-bam-output --star --paired-end --forward-prob 0 ../ERR3001915_1.fastq ../ERR3001915_2.fastq rsem/please_ncbi
 
