@@ -336,7 +336,7 @@ wget https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR
 
 > There appeared to be some issues with formatting of Chromosome 1, but could have been user/syntax error.
 
-## Indexed References for Failed Maps/Counts
+## Failed Mapping and Counting
 
 > NOTE: Though there is overlap in file/directory names, each command was run in a unique directory.
 
@@ -348,8 +348,21 @@ bowtie2-build GCF_000001735.4_TAIR10.1_genomic.fna TAIR10.1
 
 STAR --runMode genomeGenerate --genomeDir TAIR10 --genomeFastaFiles TAIR10_chr_all.fas --sjdbGTFfile Arabidopsis_thaliana.TAIR10.37.gtf
 
-> Once this was counted,
+> Once this was counted began, this reference flagged at error due to some formatting issues with the first chromosome, according to the error messages.
 
 STAR --runMode genomeGenerate --genomeDir TAIR10.1 --genomeFastaFiles GCF_000001735.4_TAIR10.1_genomic.fna --sjdbGTFfile GCF_000001735.4_TAIR10.1_genomic.gtf
+
+> This worked properly, but the .gtf needed a few genes removed due to incorrect orientation data.
+
+> There was an attempt at using salmon, but the permissions on colossus would not allow it to run and the software was too old for the security on my personal computer to allow the package to download.
+
+STAR --genomeDir ../A.thaliana_Genome/TAIR10.1 --readFilesIn <Read1.fastq> <Read2.fastq> --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix <Sample_ID>
+
+> This STAR mapping would run successfully for each sample, but the output would give formatting issues to RSEM, failing to count with the command below.
+
+rsem-calculate-expression --bam --no-bam-output --paired-end --forward-prob 0 <Sample_ID>Aligned.toTranscriptome.out.bam rsem/TAIR10.1 <Sample_ID>
+
+
+
 
 
