@@ -2,6 +2,8 @@
 
 ## Downloading RNA-Seq Data from NCBI SRA Database
 
+cd ~/scratch/BL5300/topic_of_choice
+
 ~/software/sratoolkit.2.9.6-1-centos_linux64/bin/fasterq-dump ERR3001915
 
 ~/software/sratoolkit.2.9.6-1-centos_linux64/bin/fasterq-dump ERR3001916
@@ -34,15 +36,23 @@
 
 ## Downloading A. thaliana Genome and Info Files
 
+mkdir Athal_ncbi/
+
 > Accessed the TAIR10.1 Assembly of the A. thaliana genome through the RefSeq Genome FTP via Cyberduck, coping the genomic (GCF_000001735.4_TAIR10.1_genomic.fna) and info (GCF_000001735.4_TAIR10.1_genomic.gff) files to colossus in my ~/scratch/BL5300/topic_of_choice/Athal_ncbi directory.
 
 ## Mapping Raw RNA-Seq Reads to the Genome and Counting Transcripts
 
 > NOTE: I was slightly desperate to troubleshoot my syntaxes, so the working directory and some files are named with 'please' with no significance other than hoping this pipeline worked.
 
-cd ~/scratch/BL5300/topic_of_choice/please
+cd ~/scratch/BL5300/topic_of_choice/
 
-grep -v "unknown_transcript_1" GCF_000001735.4_TAIR10.1_genomic.gtf > please_genomic.gtf
+mkdir please
+
+cd please/
+
+grep -v "unknown_transcript_1" ../Athal_ncbi/GCF_000001735.4_TAIR10.1_genomic.gtf > please_genomic.gtf
+
+mkdir rsem
 
 rsem-prepare-reference --gtf please_genomic.gtf --star ../Athal_ncbi/GCF_000001735.4_TAIR10.1_genomic.fna rsem/please_ncbi
 
@@ -157,7 +167,7 @@ grep -w "AT4G37740" SRR1610505.genes.results >> SRR1610505.GRFs.results
 grep -w "AT5G53660" SRR1610505.genes.results >> SRR1610505.GRFs.results
 
 
-> Using the gene IDs of each GRF in Arabidopsis, I used grep to sort the GRF data from the RSEM results into new files that were then downloaded to my R.project directory for analysis.
+> Using the gene IDs of each GRF in Arabidopsis, I used grep to sort the GRF data from the RSEM results into new files that were then downloaded to my R.project directory via Cyberduck for analysis.
 
 ## Data Analysis in RStudio
 
