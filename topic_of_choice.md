@@ -30,58 +30,35 @@
 
 ~/software/sratoolkit.2.9.6-1-centos_linux64/bin/fasterq-dump SRR1610507
 
-> Using the fasterq-dump function in the NCBI SRA-toolkit, I downloaded each replicate of each tissues from a variety of studies in the NCBI Bioproject database, included paired runs, if applicable.
+> Using the fasterq-dump function in the NCBI SRA-toolkit, I downloaded each replicate of each tissues from a variety of studies in the NCBI Bioproject database, included paired runs, if applicable. NOTE: Not all replicates were used due to time it took to troubleshoot/proccess the samples.
 
 ## Downloading A. thaliana Genome and Info Files
 
 > Accessed the TAIR10.1 Assembly of the A. thaliana genome through the RefSeq Genome FTP via Cyberduck, coping the genomic (GCF_000001735.4_TAIR10.1_genomic.fna) and info (GCF_000001735.4_TAIR10.1_genomic.gff) files to colossus in my ~/scratch/BL5300/topic_of_choice/Athal_ncbi directory.
 
-## Mapping Raw RNA-Seq Reads to the Genome
+## Mapping Raw RNA-Seq Reads to the Genome and Counting Transcripts
 
-cd ~/scratch/BL5300/topic_of_choice
+> NOTE: I was slightly desperate to troubleshoot my syntaxes, so the working directory and some files are named with 'please' with no significance other than hoping this pipeline worked.
 
-mkdir star-rsem
+cd ~/scratch/BL5300/topic_of_choice/please
 
-cd star-rsem
+grep -v "unknown_transcript_1" GCF_000001735.4_TAIR10.1_genomic.gtf > please_genomic.gtf
 
-STAR --runMode genomeGenerate --genomeDir ../Athal_ncbi/ --genomeFastaFiles GCF_000001735.4_TAIR10.1_genomic.fna --sjdbGTFfile GCF_000001735.4_TAIR10.1_genomic.gff
+rsem-prepare-reference --gtf please_genomic.gtf --star ../Athal_ncbi/GCF_000001735.4_TAIR10.1_genomic.fna rsem/please_ncbi
 
-> Indexed the TAIR10 Assembly for use with the STAR aligner.
+> This indexed the TAIR10.1 genome in both RSEM and STAR at the same time using transcript info from a modified .gtf file that removed a set of unknown transcripts that would through errors from incorrect orientations in the files.
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../ERR3001915_1.fastq ../ERR3001915_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "ERR3001915"
+rsem-calculate-expression --no-bam-output --star ../SRR1610505.fastq rsem/please_ncbi SRR1610505
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../ERR3001916_1.fastq ../ERR3001916_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "ERR3001916"
+rsem-calculate-expression --no-bam-output --star ../.fastq rsem/please_ncbi 
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10054928_1.fastq ../SRR10054928_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10054928"
+rsem-calculate-expression --no-bam-output --star --paired-end --forward-prob 0 ../ERR3001915_1.fastq ../ERR3001915_2.fastq rsem/please_ncbi
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10054929_1.fastq ../SRR10054929_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10054929"
+rsem-calculate-expression --no-bam-output --star --paired-end --forward-prob 0 ../ERR1727060_1.fastq ../ERR1727060_2.fastq rsem/please_ncbi
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10054931_1.fastq ../SRR10054931_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10054931"
+rsem-calculate-expression --no-bam-output --star --paired-end --forward-prob 0 ../SRR10054931_1.fastq ../SRR10054931_2.fastq rsem/please_ncbi
 
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10054932_1.fastq ../SRR10054932_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10054932"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10320043_1.fastq ../SRR10320043_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10320043"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10320044_1.fastq ../SRR10320044_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10320044"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR10320045_1.fastq ../SRR10320045_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR10320045"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../ERR1727061_1.fastq ../ERR1727061_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "ERR1727061"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../ERR1727060_1.fastq ../ERR1727060_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "ERR1727060"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../ERR1727059_1.fastq ../ERR1727059_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "ERR1727059"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR1610505_1.fastq ../SRR1610505_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR1610505"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR1610506_1.fastq ../SRR1610506_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR1610506"
-
-STAR --genomeDir ../Athal_ncbi/ --readFilesIn ../SRR1610507_1.fastq ../SRR1610507_2.fastq --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --twopassMode Basic --outFilterMultimapNmax 1 --quantMode TranscriptomeSAM --outFileNamePrefix "SRR1610507"
-
-> Mapped each of my datasets to the TAIR10 indexed genome in preparation for RSEM via STAR (WARNING: this step takes excessively long).
-
-## Counting Transcript Reads
-
+> These took the raw reads and aligned them via STAR with parameters perfect for RSEM before then counting the transcripts and outputting the needed data with RSEM, taking into account whether or not each sample was a paired-end read.
 
 # Trial Run
 
