@@ -324,3 +324,32 @@ ggplot(consensus)+
 ggplot(consensus)+
   geom_boxplot(aes(x=gene_id, y=FPKM, fill=gene_id))+
   ggtitle("Average Expression Levels of GRFs in Total")
+
+
+# Errored Pipelines
+
+## Original Reference Files
+
+> Arabidopsis_thaliana.TAIR10.37.gtf was downloaded from the Ensembl FTP via Cyberduck.
+
+wget https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_chromosome_files/TAIR10_chr_all.fas
+
+> There appeared to be some issues with formatting of Chromosome 1, but could have been user/syntax error.
+
+## Indexed References for Failed Maps/Counts
+
+> NOTE: Though there is overlap in file/directory names, each command was run in a unique directory.
+
+bowtie2-build TAIR10_chr_all.fas TAIR10
+
+bowtie2-build GCF_000001735.4_TAIR10.1_genomic.fna TAIR10.1
+
+> bowtie2 outputs gave a large difficulty in running through RSEM for counting.
+
+STAR --runMode genomeGenerate --genomeDir TAIR10 --genomeFastaFiles TAIR10_chr_all.fas --sjdbGTFfile Arabidopsis_thaliana.TAIR10.37.gtf
+
+> Once this was counted,
+
+STAR --runMode genomeGenerate --genomeDir TAIR10.1 --genomeFastaFiles GCF_000001735.4_TAIR10.1_genomic.fna --sjdbGTFfile GCF_000001735.4_TAIR10.1_genomic.gtf
+
+
