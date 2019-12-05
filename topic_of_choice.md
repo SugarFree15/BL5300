@@ -358,9 +358,9 @@ wget https://www.arabidopsis.org/download_files/Sequences/Araport11_blastsets/Ar
 
 > NOTE: Though there is overlap in file/directory names, each command was run in a unique directory.
 
-bowtie2-build TAIR10_chr_all.fas TAIR10
+bowtie2-build Araport11_genes.201606.cdna.fasta TAIR10
 
-bowtie2-build GCF_000001735.4_TAIR10.1_genomic.fna TAIR10.1
+bowtie2-build GCF_000001735.4_TAIR10.1_cds_from_genomic.fna TAIR10.1
 
 > bowtie2 outputs gave a large difficulty in running through RSEM for counting.
 
