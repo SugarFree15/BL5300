@@ -350,6 +350,8 @@ ggplot(consensus)+
 
 wget https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_chromosome_files/TAIR10_chr_all.fas
 
+wget https://www.arabidopsis.org/download_files/Sequences/Araport11_blastsets/Araport11_genes.201606.cdna.fasta.gz
+
 > There appeared to be some issues with formatting of Chromosome 1, but could have been user/syntax error.
 
 ## Failed Mapping and Counting
