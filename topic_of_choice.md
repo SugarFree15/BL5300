@@ -179,7 +179,7 @@ grep -w "AT5G53660" SRR1610505.genes.results >> SRR1610505.GRFs.results
 
 library(tidyverse)
 
-> These blocks of code format each tissue's data into a proper data frame, as well as plot the TPM and FPKM of each GRF gene as a point and color-coded in uniform for all.
+> These blocks of code format each tissue's data into a proper data frame and renaming the columns from the default "V#" titles to their actual labels, as well as plot the TPM and FPKM of each GRF gene as a point and color-coded in uniform for all.
 
 RootCounts <- read.table("SRR1610505.GRFs.results")
 
